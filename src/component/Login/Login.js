@@ -1,7 +1,7 @@
 import React from "react"
 import { Button, FormControl, TextField, Grid, withStyles } from '@material-ui/core'
 import styles from './Login.style'
-import Header from './Header'
+import Header from '../Header'
 import axios from 'axios'
 import Dashboard from "../Dashboard"
 import { Route, Link, BrowserRouter, Redirect as Router } from 'react-router-dom'
@@ -12,7 +12,8 @@ class Login extends React.Component {
         super(props);
 
         this.state = {
-            username: "111",
+            userDetails: [],
+            username: "",
             password: "",
             loginValue: "Test",
             fieldVal: ''
@@ -25,31 +26,23 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        // this.setState({loginValue: this.state.loginValue})
-        return this.props.loginValue
+        let userData = require('../../data.json')
+        this.setState({userDetails: userData})
     }
 
     validateForm = event => {
-        var data = require('./data.json')
-
+        const userDetails = this.state.userDetails
         event.preventDefault()
-        let username = this.state.username
-        let password = this.state.password
 
-
-        this.props.handlerFromParant(this.state.loginValue)
-
-        if (username === data.username && password === data.password) {
-            // alert('Done')
-            return <Dashboard />
-        } else {
-            // alert("Fail")
-            // return <Redirect to='/Dashboard'  />
-            return (
-                this.props.username
-
-            )
+        for(var i = 0; i < userDetails.length; i++) {
+            var obj = userDetails[i];
+            if(obj.username === this.state.username && obj.password === this.state.password)
+            {
+              alert("Welcome "+ obj.name)
+              return
+            } 
         }
+        return alert("Wrong Username/Password")
     }
 
 
@@ -58,7 +51,7 @@ class Login extends React.Component {
 
         return (
             <>
-                <Header />
+                <Header title={"Login Form"} />
                 <form onSubmit={this.validateForm} className={classes.loginBox}>
                 
                     <Grid container direction="column">

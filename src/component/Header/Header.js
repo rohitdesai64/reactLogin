@@ -1,6 +1,5 @@
 import React from "react"
-import { Button, Toolbar, Typography, AppBar, withStyles } from '@material-ui/core'
-import styles from './Login.style'
+import { Toolbar, Typography, AppBar } from '@material-ui/core'
 
 class Header extends React.Component {
     render() {
@@ -8,7 +7,7 @@ class Header extends React.Component {
             <AppBar>
                 <Toolbar>
                     <Typography variant="h6">
-                        Login Form
+                        {this.props.title}
                     </Typography>
                 </Toolbar>
             </AppBar>
