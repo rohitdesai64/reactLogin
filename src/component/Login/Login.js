@@ -1,10 +1,9 @@
 import React from "react"
-import { Button, FormControl, TextField, Grid, withStyles } from '@material-ui/core'
+import { FormControl, TextField, Grid, withStyles } from '@material-ui/core'
 import styles from './Login.style'
 import Header from '../Header'
-import axios from 'axios'
-import Dashboard from "../Dashboard"
-import { Route, Link, BrowserRouter, Redirect as Router } from 'react-router-dom'
+// import { Route, Link, BrowserRouter, Redirect as Router } from 'react-router-dom'
+import AddButton from "../Button";
 
 class Login extends React.Component {
 
@@ -38,8 +37,7 @@ class Login extends React.Component {
             var obj = userDetails[i];
             if(obj.username === this.state.username && obj.password === this.state.password)
             {
-              alert("Welcome "+ obj.name)
-              return
+                return window.location = "dashboard"
             } 
         }
         return alert("Wrong Username/Password")
@@ -51,7 +49,7 @@ class Login extends React.Component {
 
         return (
             <>
-                <Header title={"Login Form"} />
+                <Header title={"Login Form"} displaySignUpButton={true} />
                 <form onSubmit={this.validateForm} className={classes.loginBox}>
                 
                     <Grid container direction="column">
@@ -79,13 +77,9 @@ class Login extends React.Component {
                         
 
                         <Grid item xs className={classes.pad20}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                            >
-                                Login
-                        </Button>
+                            <AddButton
+                            type={"submit"}
+                            text={"Login"} />
                         </Grid>
                     </Grid>
 
@@ -95,7 +89,5 @@ class Login extends React.Component {
     }
     
 }
-
-
 
 export default withStyles(styles)(Login)
